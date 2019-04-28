@@ -1,0 +1,109 @@
+[gd_scene load_steps=13 format=2]
+
+[ext_resource path="res://scenes/shoot/ShooterScene.gd" type="Script" id=1]
+[ext_resource path="res://assets/img/background-wood.png" type="Texture" id=2]
+[ext_resource path="res://assets/img/poster.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/poster2.png" type="Texture" id=4]
+[ext_resource path="res://assets/img/skull.png" type="Texture" id=5]
+[ext_resource path="res://scenes/shoot/items/Bottle.tscn" type="PackedScene" id=6]
+[ext_resource path="res://scenes/shoot/items/Glass.tscn" type="PackedScene" id=7]
+[ext_resource path="res://scenes/shoot/items/BottleWine.tscn" type="PackedScene" id=8]
+[ext_resource path="res://scenes/shoot/GunReticle.tscn" type="PackedScene" id=9]
+[ext_resource path="res://scenes/shoot/ShooterUI.gd" type="Script" id=10]
+[ext_resource path="res://assets/font/title_font.tres" type="DynamicFont" id=11]
+[ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=12]
+
+[node name="ShooterGame" type="Node2D"]
+script = ExtResource( 1 )
+
+[node name="Group" type="ParallaxBackground" parent="."]
+
+[node name="Back" type="ParallaxLayer" parent="Group"]
+editor/display_folded = true
+modulate = Color( 0.321569, 0.321569, 0.321569, 1 )
+
+[node name="Sprite" type="Sprite" parent="Group/Back"]
+texture = ExtResource( 2 )
+centered = false
+
+[node name="poster" type="Sprite" parent="Group/Back"]
+position = Vector2( 629.863, 220.407 )
+rotation = 0.306236
+texture = ExtResource( 3 )
+
+[node name="poster2" type="Sprite" parent="Group/Back"]
+position = Vector2( 663.025, 230.959 )
+rotation = -0.266583
+texture = ExtResource( 3 )
+
+[node name="poster3" type="Sprite" parent="Group/Back"]
+position = Vector2( 712.767, 377.171 )
+rotation = 0.309647
+texture = ExtResource( 4 )
+
+[node name="skull" type="Sprite" parent="Group/Back"]
+position = Vector2( 137.836, 209.063 )
+rotation = 0.0396498
+texture = ExtResource( 5 )
+
+[node name="Items" type="ParallaxLayer" parent="Group"]
+editor/display_folded = true
+
+[node name="Bottle" parent="Group/Items" instance=ExtResource( 6 )]
+position = Vector2( 377.504, 356.07 )
+
+[node name="Bottle2" parent="Group/Items" instance=ExtResource( 6 )]
+position = Vector2( 586, 279 )
+rotation = 1.04964
+velocity_angle = -2.5
+
+[node name="Bottle3" parent="Group/Items" instance=ExtResource( 6 )]
+position = Vector2( 297, 160 )
+rotation = 1.04964
+velocity_angle = -1.0
+
+[node name="Glass" parent="Group/Items" instance=ExtResource( 7 )]
+position = Vector2( 188.248, 198.444 )
+
+[node name="Bottle5" parent="Group/Items" instance=ExtResource( 8 )]
+position = Vector2( 266.633, 399.95 )
+
+[node name="GunReticle" parent="." instance=ExtResource( 9 )]
+
+[node name="UI" type="Node" parent="."]
+
+[node name="ShooterUI" type="Control" parent="UI"]
+visible = false
+anchor_right = 1.0
+anchor_bottom = 1.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+script = ExtResource( 10 )
+
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ShooterUI"]
+anchor_right = 1.0
+margin_bottom = 36.0
+custom_constants/separation = 10
+
+[node name="Label" type="Label" parent="UI/ShooterUI/HBoxContainer"]
+margin_right = 395.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 11 )
+text = "Score:"
+align = 2
+
+[node name="Score" type="Label" parent="UI/ShooterUI/HBoxContainer"]
+margin_left = 405.0
+margin_right = 800.0
+margin_bottom = 36.0
+size_flags_horizontal = 3
+custom_fonts/font = ExtResource( 11 )
+custom_colors/font_color = Color( 0.0235294, 0.454902, 0, 1 )
+custom_colors/font_color_shadow = Color( 0, 0, 0, 1 )
+custom_constants/shadow_offset_x = 1
+custom_constants/shadow_offset_y = 1
+text = "xxx"
+
+[node name="Dialog" parent="." instance=ExtResource( 12 )]
+

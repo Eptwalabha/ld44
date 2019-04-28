@@ -1,0 +1,67 @@
+; Engine configuration file.
+; It's best edited using the editor UI and not directly,
+; since the parameters that go here are not all obvious.
+;
+; Format:
+;   [section] ; section goes between []
+;   param=value ; assign values to parameters
+
+config_version=4
+
+_global_script_classes=[ {
+"base": "Node",
+"class": "Dialog",
+"language": "GDScript",
+"path": "res://scenes/dialog/Dialog.gd"
+}, {
+"base": "Node2D",
+"class": "Duelist",
+"language": "GDScript",
+"path": "res://scenes/duel/Duelist.gd"
+}, {
+"base": "Node2D",
+"class": "GunReticle",
+"language": "GDScript",
+"path": "res://scenes/shoot/GunReticle.gd"
+}, {
+"base": "Control",
+"class": "ShooterUI",
+"language": "GDScript",
+"path": "res://scenes/shoot/ShooterUI.gd"
+}, {
+"base": "Node2D",
+"class": "ShootingTarget",
+"language": "GDScript",
+"path": "res://scenes/shoot/items/ShootingTarget.gd"
+}, {
+"base": "Node2D",
+"class": "npc",
+"language": "GDScript",
+"path": "res://NPC.gd"
+} ]
+_global_script_class_icons={
+"Dialog": "",
+"Duelist": "",
+"GunReticle": "",
+"ShooterUI": "",
+"ShootingTarget": "",
+"npc": ""
+}
+
+[application]
+
+config/name="Wanted"
+run/main_scene="res://scenes/shoot/ShooterScene.tscn"
+config/icon="res://icon.png"
+
+[display]
+
+window/size/width=800
+window/size/resizable=false
+
+[rendering]
+
+quality/driver/driver_name="GLES2"
+vram_compression/import_etc=true
+vram_compression/import_etc2=false
+environment/default_environment="res://default_env.tres"

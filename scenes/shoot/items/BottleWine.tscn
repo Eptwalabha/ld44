@@ -1,0 +1,14 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/shoot/items/Bottle.tscn" type="PackedScene" id=1]
+[ext_resource path="res://assets/img/bottle-wine.png" type="Texture" id=2]
+
+[node name="Bottle" instance=ExtResource( 1 )]
+scale = Vector2( 1.33412, 1.49315 )
+
+[node name="Collision" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -22.7342, -0.141754, -5.59241, -27.0126, -7.90887, -63.6127, 8.30634, -64.0759, 7.84305, -26.5494, 22.205, 0.321533, 21.7418, 63.3291, -20.881, 64.2557 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 2 )
+

@@ -1,0 +1,18 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/shoot/items/ShootingTarget.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/shoot/items/Glass.gd" type="Script" id=2]
+[ext_resource path="res://assets/img/glass-shot.png" type="Texture" id=3]
+
+[node name="Glass" instance=ExtResource( 1 )]
+script = ExtResource( 2 )
+
+[node name="Collision" parent="Area2D" index="0"]
+polygon = PoolVector2Array( -9.21573, 20.2471, -19.1085, -18.4246, -0.222313, -21.7222, 17.9144, -19.0241, 10.27, 20.8467 )
+
+[node name="Sprite" parent="." index="1"]
+texture = ExtResource( 3 )
+
+[node name="Particle" type="CPUParticles2D" parent="." index="2"]
+emitting = false
+
