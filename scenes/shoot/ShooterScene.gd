@@ -10,11 +10,14 @@ func _ready() -> void:
 	for item in $Group/Items.get_children():
 		if item is ShootingTarget:
 			item.connect("hit", self, "target_hit")
-	var _err = dialog.connect("dialog_line_end", self, "_on_dialog_line_end")
-	_err = dialog.connect("dialog_end", self, "_on_dialog_end")
-	dialog.start_dialog()
-	$Group/Items.visible = false
-	playing = false
+	if GameData.should_play_tutorial(dialog):
+		var _err = dialog.connect("dialog_line_end", self, "_on_dialog_line_end")
+		_err = dialog.connect("dialog_end", self, "_on_dialog_end")
+		$Group/Items.visible = false
+		playing = false
+		dialog.start_dialog()
+	else:
+		playing = true
 
 func _process(_delta: float) -> void:
 	pass
@@ -36,4 +39,6 @@ func _on_dialog_line_end(dialog_id: String) -> void:
 
 func _on_dialog_end() -> void:
 	playing = true
+	$Group/Items.visible = true
+	GameData.tuto_played(dialog)
 	dialog.queue_free()

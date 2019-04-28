@@ -9,6 +9,7 @@ export(String, "visible", "hidden", "come_in", "come_out", "fade_in", "fade_out"
 
 export(bool) var emit_a_signal_on_dialog_end := false
 export(String) var signal_id := "dialog"
+export(float) var delay_before := .0
 
 func get_actor_texture() -> Texture:
 	return actor_texture
@@ -27,3 +28,6 @@ func get_start_animation() -> String:
 
 func get_end_animation() -> String:
 	return on_dialog_end
+
+func get_delay_before() -> float:
+	return delay_before

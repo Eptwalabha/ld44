@@ -9,6 +9,21 @@
 config_version=4
 
 _global_script_classes=[ {
+"base": "Node2D",
+"class": "Bullet",
+"language": "GDScript",
+"path": "res://scenes/duel/Bullet.gd"
+}, {
+"base": "Node2D",
+"class": "Card",
+"language": "GDScript",
+"path": "res://scenes/duel/Card.gd"
+}, {
+"base": "Node2D",
+"class": "CardBoard",
+"language": "GDScript",
+"path": "res://scenes/duel/CardBoard.gd"
+}, {
 "base": "Node",
 "class": "Dialog",
 "language": "GDScript",
@@ -20,9 +35,29 @@ _global_script_classes=[ {
 "path": "res://scenes/dialog/DialogLine.gd"
 }, {
 "base": "Node2D",
+"class": "DuelGame",
+"language": "GDScript",
+"path": "res://scenes/duel/DuelGame.gd"
+}, {
+"base": "Object",
+"class": "DuelGameState",
+"language": "GDScript",
+"path": "res://scenes/duel/states/DuelGameState.gd"
+}, {
+"base": "Node2D",
 "class": "Duelist",
 "language": "GDScript",
 "path": "res://scenes/duel/Duelist.gd"
+}, {
+"base": "Node",
+"class": "GameState",
+"language": "GDScript",
+"path": "res://scenes/duel/states/GameState.gd"
+}, {
+"base": "Node2D",
+"class": "GunCylinder",
+"language": "GDScript",
+"path": "res://scenes/duel/GunCylinder.gd"
 }, {
 "base": "Node2D",
 "class": "GunReticle",
@@ -39,26 +74,43 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/shoot/items/ShootingTarget.gd"
 }, {
+"base": "Node",
+"class": "duel",
+"language": "GDScript",
+"path": "res://scenes/duel/Duel.gd"
+}, {
 "base": "Node2D",
 "class": "npc",
 "language": "GDScript",
 "path": "res://scenes/saloon/NPC.gd"
 } ]
 _global_script_class_icons={
+"Bullet": "",
+"Card": "",
+"CardBoard": "",
 "Dialog": "",
 "DialogLine": "",
+"DuelGame": "",
+"DuelGameState": "",
 "Duelist": "",
+"GameState": "",
+"GunCylinder": "",
 "GunReticle": "",
 "ShooterUI": "",
 "ShootingTarget": "",
+"duel": "",
 "npc": ""
 }
 
 [application]
 
 config/name="Wanted"
-run/main_scene="res://scenes/shoot/ShooterScene.tscn"
+run/main_scene="res://scenes/duel/Duel.tscn"
 config/icon="res://icon.png"
+
+[autoload]
+
+GameData="*res://scenes/GameData.gd"
 
 [debug]
 

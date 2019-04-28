@@ -1,0 +1,45 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/dialog/DialogLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/img/sherif.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/bartender.png" type="Texture" id=4]
+
+[node name="TutorialDuel" instance=ExtResource( 1 )]
+dialog_name = "duel_tutorial"
+is_tutorial = true
+
+[node name="DialogLine" parent="Lines" index="0" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Hey!"
+on_dialog_start = "hidden"
+on_dialog_end = "come_in"
+delay_before = 2.0
+
+[node name="DialogLine2" parent="Lines" index="1" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Mais vous vous foutez de moi?
+ou je rêve?"
+
+[node name="DialogLine4" parent="Lines" index="2" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 4 )
+dialog_line = "Qui moi?"
+
+[node name="DialogLine5" parent="Lines" index="3" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Mais non!
+Pas vous… lui là"
+
+[node name="DialogLine3" parent="Lines" index="4" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Je m'en vais te botter le cul mon petit!"
+on_dialog_end = "come_out"
+emit_a_signal_on_dialog_end = true
+signal_id = "duel_tutorial"
+
+[node name="DialogLine6" parent="Lines" index="5" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 4 )
+dialog_line = "Mais il me voulait quoi lui?"
+on_dialog_start = "fade_in"
+on_dialog_end = "come_out"
+

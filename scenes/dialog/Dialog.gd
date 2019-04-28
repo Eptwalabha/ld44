@@ -10,6 +10,7 @@ onready var actor : Sprite = $Node2D/Sprite as Sprite
 onready var player : AnimationPlayer = $Node2D/AnimationPlayer as AnimationPlayer
 onready var dialog_label : Label = $Control/MarginContainer/VBoxContainer/CenterContainer/Label as Label
 onready var click_to_continue : Label = $Control/MarginContainer/VBoxContainer/Continue as Label
+onready var timer : Timer = $Timer as Timer
 
 enum DialogState { BEGIN_LINE, WAITING_FOR_ACCEPT_INPUT, END }
 var state = DialogState.BEGIN_LINE
@@ -17,9 +18,12 @@ var state = DialogState.BEGIN_LINE
 var current_dialog_index := 0
 var current_dialog : DialogLine
 
+export(String) var dialog_name := "dialog"
+export(bool) var is_tutorial := false
+
 func _ready() -> void:
 	dialog_label.visible = false
-	click_to_continue.visible = false
+	click_to_continue.text = ""
 	actor.visible = false
 
 func _input(event: InputEvent) -> void:
@@ -48,6 +52,7 @@ func _setup_next_line(index: int) -> void:
 	if dialog_line == null:
 		end_dialog()
 	else:
+		dialog_label.visible = false
 		current_dialog_index = index
 		current_dialog = dialog_line
 		actor.texture = dialog_line.get_actor_texture()
@@ -55,12 +60,14 @@ func _setup_next_line(index: int) -> void:
 		_start_line_of_dialog()
 
 func _start_line_of_dialog() -> void:
+	timer.start(current_dialog.get_delay_before())
+	yield(timer, "timeout")
 	state = DialogState.BEGIN_LINE
 	_play_animation(current_dialog.get_start_animation(), "visible")
 
 func _end_line_of_dialog() -> void:
 	dialog_label.text = ""
-	click_to_continue.visible = false
+	click_to_continue.text = ""
 	state = DialogState.END
 	_play_animation(current_dialog.get_end_animation(), "hidden")
 
@@ -77,11 +84,14 @@ func start_dialog() -> void:
 func end_dialog() -> void:
 	emit_signal("dialog_end")
 
+func get_name() -> String:
+	return dialog_name
+
 func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
 	if state == DialogState.BEGIN_LINE:
 		dialog_label.visible = true
 		state = DialogState.WAITING_FOR_ACCEPT_INPUT
-		click_to_continue.visible = true
+		click_to_continue.text = "CLICK to continue"
 		emit_signal("dialog_waiting")
 	elif state == DialogState.END:
 		if current_dialog.does_signal_on_dialog_end():

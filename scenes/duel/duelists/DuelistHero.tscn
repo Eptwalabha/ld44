@@ -1,0 +1,10 @@
+[gd_scene load_steps=2 format=2]
+
+[ext_resource path="res://scenes/duel/Duelist.tscn" type="PackedScene" id=1]
+
+[node name="DuelistHero" instance=ExtResource( 1 )]
+player = true
+
+[node name="GunCylinder" parent="." index="2"]
+visible = false
+
