@@ -9,10 +9,7 @@ onready var cooldown_timer : Timer = $Cooldown as Timer
 onready var area2D : Area2D = $Area2D as Area2D
 
 func _ready() -> void:
-	cooldown_timer.connect("timeout", self, "_cooldown_timeout")
-
-func _process(delta: float) -> void:
-	pass
+	var _err = cooldown_timer.connect("timeout", self, "_cooldown_timeout")
 
 func shoot(shoot_at: Vector2) -> void:
 	if shooting:

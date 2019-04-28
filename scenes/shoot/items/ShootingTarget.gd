@@ -16,3 +16,6 @@ func _on_Area2D_area_entered(area: Area2D) -> void:
 
 func destroyed() -> void:
 	$Area2D.queue_free()
+
+func get_point() -> int:
+	return point
