@@ -1,9 +1,10 @@
-[gd_scene load_steps=5 format=2]
+[gd_scene load_steps=6 format=2]
 
 [ext_resource path="res://scenes/GameOver.gd" type="Script" id=1]
 [ext_resource path="res://assets/img/npc-player.png" type="Texture" id=2]
 [ext_resource path="res://assets/font/title_font.tres" type="DynamicFont" id=3]
-[ext_resource path="res://ScreenTransition.tscn" type="PackedScene" id=4]
+[ext_resource path="res://assets/font/small_font.tres" type="DynamicFont" id=4]
+[ext_resource path="res://ScreenTransition.tscn" type="PackedScene" id=5]
 
 [node name="GameOver" type="Node"]
 script = ExtResource( 1 )
@@ -44,32 +45,47 @@ align = 1
 [node name="MarginContainer3" type="MarginContainer" parent="Control/VBoxContainer"]
 margin_top = 80.0
 margin_right = 800.0
-margin_bottom = 510.0
+margin_bottom = 448.0
 size_flags_horizontal = 3
 size_flags_vertical = 3
 custom_constants/margin_top = 20
 custom_constants/margin_bottom = 20
 
 [node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
-margin_top = 514.0
+margin_top = 452.0
 margin_right = 800.0
-margin_bottom = 600.0
-custom_constants/margin_top = 20
-custom_constants/margin_bottom = 30
+margin_bottom = 557.0
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 20
 
 [node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer2"]
-margin_top = 20.0
+margin_top = 10.0
 margin_right = 800.0
-margin_bottom = 56.0
+margin_bottom = 85.0
 custom_fonts/font = ExtResource( 3 )
-text = "Say sheriff, can I have his boots ?"
+text = "Say sheriff, can I have his boots ?
+toto"
+align = 1
+
+[node name="MarginContainer4" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 561.0
+margin_right = 800.0
+margin_bottom = 600.0
+custom_constants/margin_top = 10
+custom_constants/margin_bottom = 10
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer4"]
+modulate = Color( 1, 1, 1, 0.745098 )
+margin_top = 10.0
+margin_right = 800.0
+margin_bottom = 29.0
+custom_fonts/font = ExtResource( 4 )
+custom_colors/font_color = Color( 0.686275, 0.733333, 0.486275, 1 )
+text = "CLICK to exit"
 align = 1
 
 [node name="Timer" type="Timer" parent="."]
 
-[node name="Tween" type="Tween" parent="."]
-
-[node name="ScreenTransition" parent="." instance=ExtResource( 4 )]
-visible = false
+[node name="ScreenTransition" parent="." instance=ExtResource( 5 )]
 
 [connection signal="faded_out" from="ScreenTransition" to="." method="_on_ColorRect_faded_out"]

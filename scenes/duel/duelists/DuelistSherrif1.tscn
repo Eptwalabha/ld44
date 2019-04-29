@@ -5,7 +5,7 @@
 [ext_resource path="res://assets/img/bottle-wine.png" type="Texture" id=3]
 
 [node name="DuelistSherrif1" instance=ExtResource( 1 )]
-life = 1
+life = 2
 
 [node name="Sprite" type="Sprite" parent="Position2D/Legs/Body" index="0"]
 position = Vector2( -23.9255, -43.4953 )

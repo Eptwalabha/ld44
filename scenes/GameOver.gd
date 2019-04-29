@@ -2,7 +2,9 @@ extends Node
 
 onready var screen_transition: ScreenTransition = $ScreenTransition as ScreenTransition
 onready var label: Label = $Control/VBoxContainer/MarginContainer2/Label as Label
+onready var click_to_exit: Label = $Control/VBoxContainer/MarginContainer4/Label as Label
 onready var sprite: Sprite = $Node2D/Sprite as Sprite
+onready var timer: Timer = $Timer as Timer
 
 var screens : Array = [
 	{
@@ -32,11 +34,24 @@ var screens : Array = [
 ]
 
 func _ready() -> void:
+	var text = click_to_exit.text
+	click_to_exit.text = ""
+	set_process_input(false)
 	random_game_over()
 	screen_transition.fade_in()
+	yield(screen_transition, "faded_in")
+	timer.start(1)
+	yield(timer, "timeout")
+	click_to_exit.text = text
+	set_process_input(true)
 
+func _input(event: InputEvent) -> void:
+	if event.is_action_pressed("ui_accept") or event is InputEventMouse and event.is_pressed():
+		set_process_input(false)
+		screen_transition.fade_out()
+	
 func _on_ColorRect_faded_out() -> void:
-	print("load main menu")
+	get_tree().change_scene("res://scenes/MainMenu.tscn")
 
 func random_game_over(i = -1) -> void:
 	randomize()
