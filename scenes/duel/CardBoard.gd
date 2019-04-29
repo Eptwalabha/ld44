@@ -1,10 +1,10 @@
 extends Node2D
 class_name CardBoard
 
-signal first_distribution_over
-signal river_distributed
-signal cards_picked
-signal cards_to_play_selected
+signal game_started
+signal river_distributed(turn_number)
+signal new_cards_picked_up(turn_number)
+signal cards_to_play_selected(turn_number)
 
 onready var deck : Node2D = $Deck as Node2D
 onready var player : Node2D = $Player as Node2D
@@ -16,11 +16,16 @@ onready var token : Sprite = $Token as Sprite
 var CardScene := load("res://scenes/duel/Card.tscn") as PackedScene
 var player_turn : bool = true
 var opponent_pickedup_card : Card = null
+var turn_number : int = 0
 
 var the_opponent: Duelist
 var the_player: Duelist
 
-func first_distribution(p: Duelist, o: Duelist) -> void:
+func reset_game() -> void:
+	turn_number = 0
+	pass
+
+func start_game(p: Duelist, o: Duelist) -> void:
 	_spread_cards(false)
 	the_player = p
 	the_opponent = o
@@ -34,9 +39,10 @@ func first_distribution(p: Duelist, o: Duelist) -> void:
 		card.flip()
 	timer.start(1)
 	yield(timer, "timeout")
-	emit_signal("first_distribution_over")
+	emit_signal("game_started")
 
 func distribute_river() -> void:
+	turn_number += 1
 	_spread_cards(false)
 	_empty_played_cards()
 	_empty_card_from_node(river)
@@ -47,9 +53,9 @@ func distribute_river() -> void:
 		card.flip(true)
 	timer.start(1)
 	yield(timer, "timeout")
-	emit_signal("river_distributed")
+	emit_signal("river_distributed", turn_number)
 
-func pick_a_card() -> void:
+func pick_a_new_card() -> void:
 	#_move_chip()
 	if player_turn:
 		_let_player_pickup_a_card()
@@ -57,7 +63,7 @@ func pick_a_card() -> void:
 		_let_opponent_pickup_a_card()
 		_let_player_pickup_a_card()
 
-func pick_cards_to_play() -> void:
+func select_card_to_play() -> void:
 	_empty_card_from_node(river)
 	timer.start(.1)
 	yield(timer, "timeout")
@@ -69,7 +75,7 @@ func _end_of_pickup_phase() -> void:
 	yield(timer, "timeout")
 	opponent_pickedup_card.flip(false)
 	player_turn = not player_turn
-	emit_signal("cards_picked")
+	emit_signal("new_cards_picked_up", turn_number)
 
 func _end_of_card_selection_phase() -> void:
 	_set_cards_in_player_deck_selectable(false)
@@ -80,7 +86,7 @@ func _end_of_card_selection_phase() -> void:
 	_reveal_cards_played()
 	timer.start(.5)
 	yield(timer, "timeout")
-	emit_signal("cards_to_play_selected")
+	emit_signal("cards_to_play_selected", turn_number)
 	
 func _spawn_new_card() -> Card:
 	var card : Card = CardScene.instance() as Card
@@ -165,7 +171,8 @@ func _set_cards_in_river_selectable(active: bool) -> void:
 	for card in river.get_children():
 		card.selectable = active
 		if active:
-			card.connect("card_selected", self, "_on_player_pickedup_a_card_in_river")
+			if not card.is_connected("card_selected", self, "_on_player_pickedup_a_card_in_river"):
+				card.connect("card_selected", self, "_on_player_pickedup_a_card_in_river")
 		else:
 			card.disconnect("card_selected", self, "_on_player_pickedup_a_card_in_river")
 

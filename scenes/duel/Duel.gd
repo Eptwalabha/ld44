@@ -2,8 +2,8 @@ tool
 extends Node
 class_name duel
 
-onready var game: DuelGame = $DuelGame as DuelGame
 onready var player: Duelist = $Game/Ground/Player as Duelist
+onready var card_game: CardBoard = $CardBoard as CardBoard
 
 var opponent: Duelist
 var tutorial: Dialog
@@ -14,6 +14,7 @@ export(PackedScene) var TutorialScene = null
 func _ready() -> void:
 	spawn_opponent()
 	reset_game()
+	_connect_card_game()
 
 	if TutorialScene is PackedScene:
 		tutorial = TutorialScene.instance() as Dialog
@@ -57,4 +58,23 @@ func reset_game() -> void:
 func start_game() -> void:
 	player.show_info()
 	opponent.show_info()
-	game.start_new_game(player, opponent)
+	card_game.start_game(player, opponent)
+
+func _connect_card_game() -> void:
+	card_game.connect("game_started", self, "_card_game_game_started")
+	card_game.connect("river_distributed", self, "_card_game_river_distributed")
+	card_game.connect("new_cards_picked_up", self, "_card_game_new_cards_picked_up")
+	card_game.connect("cards_to_play_selected", self, "_card_game_cards_to_play_selected")
+
+func _card_game_game_started() -> void:
+	card_game.distribute_river()
+
+func _card_game_river_distributed(_turn_number: int) -> void:
+	card_game.pick_a_new_card()
+
+func _card_game_new_cards_picked_up(_turn_number: int) -> void:
+	card_game.select_card_to_play()
+
+func _card_game_cards_to_play_selected(_turn_number: int) -> void:
+	print("animation!")
+	card_game.distribute_river()
