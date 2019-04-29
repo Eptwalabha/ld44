@@ -8,6 +8,8 @@ export(int, 2, 5) var life: int = 3
 var current_life = 3
 
 var opponent: Duelist setget set_opponent
+var card_to_play: Card = null
+var hand: Array = []
 
 func _ready() -> void:
 	reset()
@@ -43,3 +45,27 @@ func is_dead() -> bool:
 
 func is_player() -> bool:
 	return player
+
+func pick_a_card(cards: Array) -> Card:
+	var best_card: Card = null
+	for card in cards:
+		best_card = card
+	add_card_to_hand(best_card)
+	return best_card
+
+func add_card_to_hand(card: Card) -> void:
+	hand.push_back(card)
+
+func update_hand(cards: Array) -> void:
+	hand = cards
+
+func select_card_to_play() -> void:
+	card_to_play = hand[0]
+	print("selected", card_to_play)
+
+func reveal_card_to_play() -> void:
+	if not card_to_play.flipped:
+		card_to_play.flip(true)
+
+func opponent_picked(_card: Card) -> void:
+	pass

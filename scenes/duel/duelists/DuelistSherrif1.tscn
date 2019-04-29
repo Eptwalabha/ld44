@@ -19,5 +19,6 @@ scale = Vector2( 0.632534, 0.632534 )
 texture = ExtResource( 3 )
 
 [node name="GunCylinder" parent="." index="2"]
+visible = false
 chambers = 8
 
