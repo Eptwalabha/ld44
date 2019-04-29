@@ -7,6 +7,8 @@ onready var card_game: CardBoard = $CardBoard as CardBoard
 
 var opponent: Duelist
 var tutorial: Dialog
+var duelist_end_animation := 0
+var playing := false
 
 export(PackedScene) var Enemy setget set_enemy
 export(PackedScene) var TutorialScene = null
@@ -14,7 +16,7 @@ export(PackedScene) var TutorialScene = null
 func _ready() -> void:
 	spawn_opponent()
 	reset_game()
-	_connect_card_game()
+	_connect_signal()
 
 	if TutorialScene is PackedScene:
 		tutorial = TutorialScene.instance() as Dialog
@@ -38,6 +40,9 @@ func set_enemy(packed_scene: PackedScene) -> void:
 	if Engine.is_editor_hint():
 		spawn_opponent()
 
+func is_someone_dead() -> bool:
+	return player.is_dead() or opponent.is_dead()
+
 func _start_tutorial() -> void:
 	var _err = tutorial.connect("dialog_end", self, "_on_tuto_end")
 	_err = tutorial.connect("dialog_line_end", self, "_on_tuto_line_end") 
@@ -56,11 +61,19 @@ func reset_game() -> void:
 	opponent.reset()
 
 func start_game() -> void:
+	playing = true
 	player.show_info()
 	opponent.show_info()
 	card_game.start_game(player, opponent)
 
-func _connect_card_game() -> void:
+func game_over() -> void:
+	playing = false
+	card_game.stop_game()
+	print("game over")
+
+func _connect_signal() -> void:
+	player.connect("end_card_animation", self, "_on_duelist_end_card_animation")
+	opponent.connect("end_card_animation", self, "_on_duelist_end_card_animation")
 	card_game.connect("game_started", self, "_card_game_game_started")
 	card_game.connect("river_distributed", self, "_card_game_river_distributed")
 	card_game.connect("new_cards_picked_up", self, "_card_game_new_cards_picked_up")
@@ -76,5 +89,18 @@ func _card_game_new_cards_picked_up(_turn_number: int) -> void:
 	card_game.select_card_to_play()
 
 func _card_game_cards_to_play_selected(_turn_number: int) -> void:
-	print("animation!")
-	card_game.distribute_river()
+	duelist_end_animation = 0
+	player.update_player_state()
+	opponent.update_player_state()
+	player.update_player_state_whit_opponent(opponent)
+	opponent.update_player_state_whit_opponent(player)
+	player.play_state()
+	opponent.play_state()
+	if is_someone_dead():
+		game_over()
+
+func _on_duelist_end_card_animation(duelist: Duelist) -> void:
+	duelist.idle()
+	duelist_end_animation += 1
+	if playing and duelist_end_animation == 2:
+		card_game.distribute_river()

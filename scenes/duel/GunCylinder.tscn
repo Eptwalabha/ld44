@@ -5,10 +5,10 @@
 
 [node name="GunCylinder" type="Node2D"]
 script = ExtResource( 1 )
+chambers = 6
 
 [node name="Pivot" type="Sprite" parent="."]
 modulate = Color( 1, 1, 1, 0.788235 )
-rotation = -1.57079
 scale = Vector2( 0.774209, 0.774209 )
 texture = ExtResource( 2 )
 

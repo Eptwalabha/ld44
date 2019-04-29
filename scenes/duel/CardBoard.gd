@@ -11,7 +11,9 @@ onready var player : Node2D = $Player as Node2D
 onready var opponent : Node2D = $Opponent as Node2D
 onready var river : Node2D = $River as Node2D
 onready var timer : Timer = $Timer as Timer
-onready var token : Sprite = $Token as Sprite
+onready var _token : Sprite = $Token as Sprite
+
+export(float) var slide_speed := 0.5
 
 var CardScene := load("res://scenes/duel/Card.tscn") as PackedScene
 var player_turn : bool = true
@@ -22,18 +24,28 @@ var the_opponent: Duelist
 var the_player: Duelist
 
 func reset_game() -> void:
+	the_player.reset()
+	the_opponent.reset()
 	turn_number = 0
-	pass
 
+func stop_game() -> void:
+	_spread_cards(true)
+	
 func start_game(p: Duelist, o: Duelist) -> void:
 	_spread_cards(false)
 	the_player = p
 	the_opponent = o
 	_distribute_card_to(the_player)
+	timer.start(slide_speed / 2)
+	yield(timer, "timeout")
 	_distribute_card_to(the_opponent)
+	timer.start(slide_speed / 2)
+	yield(timer, "timeout")
 	_distribute_card_to(the_player)
+	timer.start(slide_speed / 2)
+	yield(timer, "timeout")
 	_distribute_card_to(the_opponent)
-	timer.start(.5)
+	timer.start(slide_speed)
 	yield(timer, "timeout")
 	for card in player.get_children():
 		card.flip()
@@ -48,10 +60,10 @@ func distribute_river() -> void:
 	_empty_card_from_node(river)
 	for i in range(0, 3):
 		var card = _spawn_card_in_river()
-		timer.start(.6)
+		timer.start(slide_speed)
 		yield(timer, "timeout")
 		card.flip(true)
-	timer.start(1)
+	timer.start(.5)
 	yield(timer, "timeout")
 	emit_signal("river_distributed", turn_number)
 
@@ -90,6 +102,7 @@ func _end_of_card_selection_phase() -> void:
 	
 func _spawn_new_card() -> Card:
 	var card : Card = CardScene.instance() as Card
+	card.slide_speed = slide_speed
 	card.shuffle()
 	deck.add_child(card)
 	return card
@@ -195,7 +208,7 @@ func _on_player_pickedup_a_card_in_river(card: Card) -> void:
 		else:
 			_end_of_pickup_phase()
 
-func _spread_cards(_spread: bool) -> void:
+func _spread_cards(_spread_away: bool) -> void:
 	_reorganize_decks()
 
 func _reveal_cards_played() -> void:

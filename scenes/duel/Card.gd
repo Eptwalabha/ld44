@@ -14,6 +14,8 @@ export(CardType) var type = CardType.EVADE setget set_type
 export(bool) var selectable: bool = false
 export(bool) var flipped: bool = false setget flip
 
+var slide_speed : float = 0.5
+
 var card_type : Dictionary = {
 	"evade": {
 		"drop_rate": 1
@@ -41,7 +43,13 @@ func set_type(card_type: int) -> void:
 		$CardBackground/Type.texture = load("res://assets/img/card/card-heal.png") as Texture
 
 func shuffle() -> void:
-	set_type(randi() % CardType.values().size())
+	var all = [
+		CardType.SHOOT, CardType.SHOOT, CardType.SHOOT, CardType.SHOOT,
+		CardType.EVADE,
+		CardType.RELOAD, CardType.RELOAD,
+		CardType.HEAL
+	]
+	set_type(all[randi() % all.size()])
 
 func flip(f = true) -> void:
 	if flipped == f:
@@ -66,7 +74,7 @@ func _on_Area2D_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		emit_signal("card_selected", self)
 
 func slide_to(position: Vector2) -> void:
-	tween.interpolate_property(self, "position", self.position, position, 1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
-	tween.start()
+	tween.interpolate_property(self, "position", self.position, position, slide_speed, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	var _err = tween.start()
 	yield(tween, "tween_completed")
 	emit_signal("card_end_sliding", self)

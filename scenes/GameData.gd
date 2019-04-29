@@ -15,6 +15,8 @@ var saloons: Dictionary = {
 	}
 }
 
+enum CardType { EVADE, RELOAD, SHOOT, HEAL }
+
 func _ready() -> void:
 	randomize()
 
