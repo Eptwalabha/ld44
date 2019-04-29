@@ -7,7 +7,7 @@
 [sub_resource type="RectangleShape2D" id=1]
 extents = Vector2( 46.7511, 68.3218 )
 
-[sub_resource type="Animation" id=3]
+[sub_resource type="Animation" id=2]
 resource_name = "hide_card"
 length = 0.4
 tracks/0/type = "value"
@@ -59,8 +59,7 @@ tracks/3/keys = {
 "values": [ Vector2( 1, 1 ), Vector2( 1e-05, 1 ), Vector2( 1, 1 ) ]
 }
 
-[sub_resource type="Animation" id=2]
-resource_name = "show_card"
+[sub_resource type="Animation" id=3]
 length = 0.4
 tracks/0/type = "value"
 tracks/0/path = NodePath("CardBackground:region_rect")
@@ -130,8 +129,8 @@ texture = ExtResource( 3 )
 shape = SubResource( 1 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-anims/hide_card = SubResource( 3 )
-anims/show_card = SubResource( 2 )
+anims/hide_card = SubResource( 2 )
+anims/show_card = SubResource( 3 )
 
 [node name="Tween" type="Tween" parent="."]
 

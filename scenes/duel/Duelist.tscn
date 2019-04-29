@@ -5,11 +5,10 @@
 [ext_resource path="res://assets/img/test-body.png" type="Texture" id=3]
 [ext_resource path="res://scenes/duel/GunCylinder.tscn" type="PackedScene" id=4]
 
-[sub_resource type="Animation" id=2]
+[sub_resource type="Animation" id=1]
 resource_name = "action_crouch"
 
-[sub_resource type="Animation" id=1]
-resource_name = "action_heal"
+[sub_resource type="Animation" id=2]
 
 [sub_resource type="Animation" id=3]
 resource_name = "action_jump"
@@ -20,24 +19,22 @@ resource_name = "action_reload"
 [sub_resource type="Animation" id=5]
 resource_name = "action_shoot"
 
-[sub_resource type="Animation" id=10]
+[sub_resource type="Animation" id=6]
 resource_name = "action_shoot_empty"
 
-[sub_resource type="Animation" id=9]
+[sub_resource type="Animation" id=7]
 resource_name = "action_swing"
 
-[sub_resource type="Animation" id=11]
+[sub_resource type="Animation" id=8]
 resource_name = "cheer"
 
-[sub_resource type="Animation" id=6]
-resource_name = "die"
+[sub_resource type="Animation" id=9]
 loop = true
 
-[sub_resource type="Animation" id=8]
-resource_name = "hurt"
+[sub_resource type="Animation" id=10]
 loop = true
 
-[sub_resource type="Animation" id=7]
+[sub_resource type="Animation" id=11]
 loop = true
 tracks/0/type = "value"
 tracks/0/path = NodePath("Position2D/Legs/Body:position")
@@ -133,17 +130,17 @@ position = Vector2( -64, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "cheer"
-anims/action_crouch = SubResource( 2 )
-anims/action_heal = SubResource( 1 )
+anims/action_crouch = SubResource( 1 )
+anims/action_heal = SubResource( 2 )
 anims/action_jump = SubResource( 3 )
 anims/action_reload = SubResource( 4 )
 anims/action_shoot = SubResource( 5 )
-anims/action_shoot_empty = SubResource( 10 )
-anims/action_swing = SubResource( 9 )
-anims/cheer = SubResource( 11 )
-anims/die = SubResource( 6 )
-anims/hurt = SubResource( 8 )
-anims/idle = SubResource( 7 )
+anims/action_shoot_empty = SubResource( 6 )
+anims/action_swing = SubResource( 7 )
+anims/cheer = SubResource( 8 )
+anims/die = SubResource( 9 )
+anims/hurt = SubResource( 10 )
+anims/idle = SubResource( 11 )
 
 [node name="Tween" type="Tween" parent="."]
 

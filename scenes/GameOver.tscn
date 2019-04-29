@@ -1,0 +1,75 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/GameOver.gd" type="Script" id=1]
+[ext_resource path="res://assets/img/npc-player.png" type="Texture" id=2]
+[ext_resource path="res://assets/font/title_font.tres" type="DynamicFont" id=3]
+[ext_resource path="res://ScreenTransition.tscn" type="PackedScene" id=4]
+
+[node name="GameOver" type="Node"]
+script = ExtResource( 1 )
+
+[node name="ColorRect2" type="ColorRect" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+color = Color( 0, 0, 0, 1 )
+
+[node name="Node2D" type="Node2D" parent="."]
+
+[node name="Sprite" type="Sprite" parent="Node2D"]
+position = Vector2( 400, 275 )
+texture = ExtResource( 2 )
+
+[node name="Control" type="Control" parent="."]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="VBoxContainer" type="VBoxContainer" parent="Control"]
+anchor_right = 1.0
+anchor_bottom = 1.0
+
+[node name="MarginContainer" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_right = 800.0
+margin_bottom = 76.0
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer"]
+margin_top = 20.0
+margin_right = 800.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 3 )
+text = "GAME OVER"
+align = 1
+
+[node name="MarginContainer3" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 80.0
+margin_right = 800.0
+margin_bottom = 510.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 20
+
+[node name="MarginContainer2" type="MarginContainer" parent="Control/VBoxContainer"]
+margin_top = 514.0
+margin_right = 800.0
+margin_bottom = 600.0
+custom_constants/margin_top = 20
+custom_constants/margin_bottom = 30
+
+[node name="Label" type="Label" parent="Control/VBoxContainer/MarginContainer2"]
+margin_top = 20.0
+margin_right = 800.0
+margin_bottom = 56.0
+custom_fonts/font = ExtResource( 3 )
+text = "Say sheriff, can I have his boots ?"
+align = 1
+
+[node name="Timer" type="Timer" parent="."]
+
+[node name="Tween" type="Tween" parent="."]
+
+[node name="ScreenTransition" parent="." instance=ExtResource( 4 )]
+visible = false
+
+[connection signal="faded_out" from="ScreenTransition" to="." method="_on_ColorRect_faded_out"]

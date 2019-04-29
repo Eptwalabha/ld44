@@ -7,6 +7,7 @@ onready var card_game: CardBoard = $CardBoard as CardBoard
 onready var ui: Control = $Control as Control
 onready var label: Label = $Control/CenterContainer/Label as Label
 onready var timer: Timer = $Timer as Timer
+onready var screen_transition := $ScreenTransition as ScreenTransition
 
 var opponent: Duelist
 var tutorial: Dialog
@@ -18,6 +19,9 @@ export(PackedScene) var Enemy setget set_enemy
 export(PackedScene) var TutorialScene = null
 
 func _ready() -> void:
+	screen_transition.fade_in()
+
+func _prepare_game() -> void:
 	spawn_opponent()
 	reset_game()
 	_connect_signal()
@@ -101,10 +105,12 @@ func game_over() -> void:
 	next_stage()
 
 func next_stage() -> void:
+	screen_transition.fade_out()
+	yield(screen_transition, "faded_out")
 	if player_victory:
-		print("load next stage")
+		get_tree().change_scene("res://scenes/GameOver.tscn")
 	else:
-		print("load game over")
+		get_tree().change_scene("res://scenes/GameOver.tscn")
 
 func _connect_signal() -> void:
 	player.connect("end_card_animation", self, "_on_duelist_end_card_animation")
@@ -140,3 +146,6 @@ func _on_duelist_end_card_animation(duelist: Duelist) -> void:
 	duelist_end_animation += 1
 	if playing and duelist_end_animation == 2:
 		card_game.distribute_river()
+
+func _on_ScreenTransition_faded_in() -> void:
+	_prepare_game()

@@ -2,7 +2,7 @@
 
 [ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=1]
 [ext_resource path="res://scenes/dialog/DialogLine.tscn" type="PackedScene" id=2]
-[ext_resource path="res://assets/img/sherif.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/sheriff.png" type="Texture" id=3]
 [ext_resource path="res://assets/img/bartender.png" type="Texture" id=4]
 
 [node name="TutorialDuel" instance=ExtResource( 1 )]

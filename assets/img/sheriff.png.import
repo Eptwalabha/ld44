@@ -2,15 +2,15 @@
 
 importer="texture"
 type="StreamTexture"
-path="res://.import/sherif.png-7f9db9205dcb75baffc3be02ac235fc2.stex"
+path="res://.import/sheriff.png-17d2daca2c73aad3a3b3af1bd711eafa.stex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/img/sherif.png"
-dest_files=[ "res://.import/sherif.png-7f9db9205dcb75baffc3be02ac235fc2.stex" ]
+source_file="res://assets/img/sheriff.png"
+dest_files=[ "res://.import/sheriff.png-17d2daca2c73aad3a3b3af1bd711eafa.stex" ]
 
 [params]
 

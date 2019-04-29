@@ -44,10 +44,10 @@ func set_type(card_type: int) -> void:
 
 func shuffle() -> void:
 	var all = [
-		CardType.SHOOT, CardType.SHOOT, CardType.SHOOT, CardType.SHOOT,
-		CardType.EVADE,
-		CardType.RELOAD, CardType.RELOAD,
-		CardType.HEAL
+		CardType.SHOOT, CardType.SHOOT, CardType.SHOOT,
+		CardType.EVADE, CardType.EVADE,
+		CardType.RELOAD, CardType.RELOAD, CardType.RELOAD,
+		CardType.HEAL, CardType.HEAL
 	]
 	set_type(all[randi() % all.size()])
 

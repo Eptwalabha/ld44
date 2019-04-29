@@ -1,4 +1,4 @@
-[gd_scene load_steps=7 format=2]
+[gd_scene load_steps=8 format=2]
 
 [ext_resource path="res://scenes/duel/Duel.gd" type="Script" id=1]
 [ext_resource path="res://scenes/duel/duelists/DuelistSherrif1.tscn" type="PackedScene" id=2]
@@ -6,6 +6,7 @@
 [ext_resource path="res://scenes/duel/duelists/DuelistHero.tscn" type="PackedScene" id=4]
 [ext_resource path="res://scenes/duel/CardBoard.tscn" type="PackedScene" id=5]
 [ext_resource path="res://assets/font/big_font.tres" type="DynamicFont" id=6]
+[ext_resource path="res://ScreenTransition.tscn" type="PackedScene" id=7]
 
 [node name="Duel" type="Node"]
 script = ExtResource( 1 )
@@ -55,3 +56,6 @@ text = "FIGHT !"
 [node name="Timer" type="Timer" parent="."]
 wait_time = 1.5
 
+[node name="ScreenTransition" parent="." instance=ExtResource( 7 )]
+
+[connection signal="faded_in" from="ScreenTransition" to="." method="_on_ScreenTransition_faded_in"]
