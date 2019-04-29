@@ -32,6 +32,7 @@ func slide_in() -> void:
 
 func reset() -> void:
 	current_life = life
+	$Life.setup(current_life)
 	$GunCylinder.hide()
 	update_flip()
 
@@ -60,6 +61,7 @@ func set_opponent(duelist: Duelist) -> void:
 
 func show_info() -> void:
 	$GunCylinder.show()
+	$Life.show()
 
 func hit() -> void:
 	current_life -= 1
@@ -71,11 +73,44 @@ func is_player() -> bool:
 	return player
 
 func pick_a_card(cards: Array) -> Card:
-	var best_card: Card = null
+	var deck_contains_gun := false
+	var deck_contains_ammo := false
+	var deck_contains_heal := false
+	var can_shoot := false
+	var can_reload := false
+	var can_evade := false
+	var can_heal := false
+	var ratio_life = current_life / life
+	var ratio_life_opponent = 1
+	if opponent != null:
+		ratio_life_opponent = opponent.current_life / opponent.life
+	
+	for card in hand:
+		if card.type == GameData.CardType.HEAL:
+			can_heal = true
+		elif card.type == GameData.CardType.SHOOT:
+			can_shoot = gun.can_shoot()
+		elif card.type == GameData.CardType.EVADE:
+			can_evade = true
+		elif card.type == GameData.CardType.RELOAD:
+			can_reload = true
+
 	for card in cards:
-		best_card = card
-	add_card_to_hand(best_card)
-	return best_card
+		if card.type == GameData.CardType.HEAL and ratio_life < 0.5:
+			add_card_to_hand(card)
+			return card
+		if card.type == GameData.CardType.SHOOT and not can_shoot and ratio_life_opponent > 0.6:
+			add_card_to_hand(card)
+		if card.type == GameData.CardType.RELOAD and (not can_shoot or not can_reload):
+			add_card_to_hand(card)
+			return card
+		if card.type == GameData.CardType.EVADE and ratio_life < 0.5 and not can_evade:
+			add_card_to_hand(card)
+			return card
+	
+	var card = cards[randi() % cards.size()]
+	add_card_to_hand(card)
+	return card
 
 func update_player_state() -> void:
 	_reset_states()
@@ -103,6 +138,7 @@ func _update_current_life() -> void:
 	
 func play_state() -> void:
 	_update_current_life()
+	$Life.update_life(current_life)
 	if current_life == 0:
 		animation_player.play("die")
 	else:
@@ -121,11 +157,12 @@ func play_state() -> void:
 			animation_player.play("action_heal")
 		
 		if is_evading:
-			var evade = ["action_jump", "action_swing", "action_crouch"]
+			#var evade = ["action_jump", "action_swing", "action_crouch"]
+			var evade = ["action_jump"]
 			animation_player.play(evade[randi() % evade.size()])
 		
 		if is_hurt:
-			print("is hurt")
+			pass
 
 func add_card_to_hand(card: Card) -> void:
 	hand.push_back(card)
@@ -134,8 +171,7 @@ func update_hand(cards: Array) -> void:
 	hand = cards
 
 func select_card_to_play() -> void:
-	card_to_play = hand[0]
-	print("selected", card_to_play)
+	card_to_play = hand[randi() % hand.size()]
 
 func reveal_card_to_play() -> void:
 	if not card_to_play.flipped:

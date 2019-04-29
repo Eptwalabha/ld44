@@ -1,9 +1,10 @@
-[gd_scene load_steps=16 format=2]
+[gd_scene load_steps=17 format=2]
 
 [ext_resource path="res://scenes/duel/Duelist.gd" type="Script" id=1]
 [ext_resource path="res://assets/img/test-legs.png" type="Texture" id=2]
 [ext_resource path="res://assets/img/test-body.png" type="Texture" id=3]
 [ext_resource path="res://scenes/duel/GunCylinder.tscn" type="PackedScene" id=4]
+[ext_resource path="res://scenes/duel/Life.tscn" type="PackedScene" id=5]
 
 [sub_resource type="Animation" id=1]
 resource_name = "action_crouch"
@@ -127,6 +128,9 @@ texture = ExtResource( 3 )
 [node name="GunCylinder" parent="." instance=ExtResource( 4 )]
 visible = false
 position = Vector2( -64, 0 )
+
+[node name="Life" parent="." instance=ExtResource( 5 )]
+position = Vector2( 32, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
 autoplay = "cheer"

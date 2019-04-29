@@ -1,15 +1,16 @@
 [gd_scene load_steps=4 format=2]
 
 [ext_resource path="res://scenes/duel/Duelist.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/img/skull.png" type="Texture" id=2]
+[ext_resource path="res://assets/img/characters/sheriff-head.png" type="Texture" id=2]
 [ext_resource path="res://assets/img/bottle-wine.png" type="Texture" id=3]
 
 [node name="DuelistSherrif1" instance=ExtResource( 1 )]
 life = 2
 
-[node name="Sprite" type="Sprite" parent="Position2D/Legs/Body" index="0"]
-position = Vector2( -23.9255, -43.4953 )
-scale = Vector2( 0.501408, 0.501408 )
+[node name="Head" type="Sprite" parent="Position2D/Legs/Body" index="0"]
+position = Vector2( -13.4507, -59.319 )
+rotation = 0.42991
+scale = Vector2( -0.846, 0.846 )
 texture = ExtResource( 2 )
 
 [node name="Sprite2" type="Sprite" parent="Position2D/Legs/Body" index="1"]

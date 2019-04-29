@@ -49,6 +49,11 @@ _global_script_classes=[ {
 "language": "GDScript",
 "path": "res://scenes/shoot/GunReticle.gd"
 }, {
+"base": "Node2D",
+"class": "Life",
+"language": "GDScript",
+"path": "res://scenes/duel/Life.gd"
+}, {
 "base": "ColorRect",
 "class": "ScreenTransition",
 "language": "GDScript",
@@ -83,6 +88,7 @@ _global_script_class_icons={
 "Duelist": "",
 "GunCylinder": "",
 "GunReticle": "",
+"Life": "",
 "ScreenTransition": "",
 "ShooterUI": "",
 "ShootingTarget": "",

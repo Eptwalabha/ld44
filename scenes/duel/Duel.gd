@@ -1,4 +1,3 @@
-tool
 extends Node
 class_name duel
 
@@ -8,6 +7,7 @@ onready var ui: Control = $Control as Control
 onready var label: Label = $Control/CenterContainer/Label as Label
 onready var timer: Timer = $Timer as Timer
 onready var screen_transition := $ScreenTransition as ScreenTransition
+onready var phase_label: Label = $Control2/MarginContainer/Phase as Label
 
 var opponent: Duelist
 var tutorial: Dialog
@@ -19,6 +19,7 @@ export(PackedScene) var Enemy setget set_enemy
 export(PackedScene) var TutorialScene = null
 
 func _ready() -> void:
+	phase_label.text = ""
 	screen_transition.fade_in()
 
 func _prepare_game() -> void:
@@ -40,13 +41,12 @@ func _prepare_game() -> void:
 func spawn_opponent() -> void:
 	opponent = Enemy.instance() as Duelist
 	opponent.flip = true
+	opponent.opponent = player
 	if $Game/Ground/OpponentPosition is Position2D:
 		$Game/Ground/OpponentPosition.add_child(opponent)
 	
 func set_enemy(packed_scene: PackedScene) -> void:
 	Enemy = packed_scene
-	if Engine.is_editor_hint():
-		spawn_opponent()
 
 func is_someone_dead() -> bool:
 	return player.is_dead() or opponent.is_dead()
@@ -121,15 +121,19 @@ func _connect_signal() -> void:
 	card_game.connect("cards_to_play_selected", self, "_card_game_cards_to_play_selected")
 
 func _card_game_game_started() -> void:
+	phase_label.text = ""
 	card_game.distribute_river()
 
 func _card_game_river_distributed(_turn_number: int) -> void:
+	phase_label.text = "pick a card"
 	card_game.pick_a_new_card()
 
 func _card_game_new_cards_picked_up(_turn_number: int) -> void:
+	phase_label.text = "select the card to play"
 	card_game.select_card_to_play()
 
 func _card_game_cards_to_play_selected(_turn_number: int) -> void:
+	phase_label.text = ""
 	duelist_end_animation = 0
 	player.update_player_state()
 	opponent.update_player_state()

@@ -58,6 +58,5 @@ func random_game_over(i = -1) -> void:
 	if i == -1:
 		i = randi() % screens.size()
 	var elem = screens[i]
-	print(elem.texture)
 	sprite.texture = load(elem.texture) as Texture
 	label.text = elem.text
