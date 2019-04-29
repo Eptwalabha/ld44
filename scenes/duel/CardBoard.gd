@@ -60,7 +60,7 @@ func distribute_river() -> void:
 	_empty_card_from_node(river)
 	for i in range(0, 3):
 		var card = _spawn_card_in_river()
-		timer.start(slide_speed)
+		timer.start(slide_speed / 2)
 		yield(timer, "timeout")
 		card.flip(true)
 	timer.start(.5)

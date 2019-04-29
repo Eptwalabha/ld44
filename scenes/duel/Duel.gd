@@ -4,6 +4,9 @@ class_name duel
 
 onready var player: Duelist = $Game/Ground/Player as Duelist
 onready var card_game: CardBoard = $CardBoard as CardBoard
+onready var ui: Control = $Control as Control
+onready var label: Label = $Control/CenterContainer/Label as Label
+onready var timer: Timer = $Timer as Timer
 
 var opponent: Duelist
 var tutorial: Dialog
@@ -61,9 +64,17 @@ func reset_game() -> void:
 	opponent.reset()
 
 func start_game() -> void:
-	playing = true
+	label.text = "READY ?"
+	ui.show()
+	timer.start(1.5)
+	yield(timer, "timeout")
 	player.show_info()
 	opponent.show_info()
+	label.text = "FIGHT !"
+	timer.start(1.5)
+	yield(timer, "timeout")
+	ui.hide()
+	playing = true
 	card_game.start_game(player, opponent)
 
 func game_over() -> void:
@@ -100,7 +111,8 @@ func _card_game_cards_to_play_selected(_turn_number: int) -> void:
 		game_over()
 
 func _on_duelist_end_card_animation(duelist: Duelist) -> void:
-	duelist.idle()
+	if not duelist.is_dead():
+		duelist.idle()
 	duelist_end_animation += 1
 	if playing and duelist_end_animation == 2:
 		card_game.distribute_river()
