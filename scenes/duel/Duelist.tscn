@@ -1,4 +1,4 @@
-[gd_scene load_steps=15 format=2]
+[gd_scene load_steps=16 format=2]
 
 [ext_resource path="res://scenes/duel/Duelist.gd" type="Script" id=1]
 [ext_resource path="res://assets/img/test-legs.png" type="Texture" id=2]
@@ -26,8 +26,16 @@ resource_name = "action_shoot_empty"
 [sub_resource type="Animation" id=9]
 resource_name = "action_swing"
 
+[sub_resource type="Animation" id=11]
+resource_name = "cheer"
+
 [sub_resource type="Animation" id=6]
 resource_name = "die"
+loop = true
+
+[sub_resource type="Animation" id=8]
+resource_name = "hurt"
+loop = true
 
 [sub_resource type="Animation" id=7]
 loop = true
@@ -104,14 +112,11 @@ tracks/5/keys = {
 "values": [ Vector2( -0.487671, -77.7831 ), Vector2( -0.487671, -80.7092 ), Vector2( -0.487671, -80.7092 ), Vector2( -0.487671, -77.7831 ) ]
 }
 
-[sub_resource type="Animation" id=8]
-resource_name = "idle_hurt"
-loop = true
-
 [node name="Duelist" type="Node2D"]
 script = ExtResource( 1 )
 
 [node name="Position2D" type="Position2D" parent="."]
+position = Vector2( -500, 0 )
 
 [node name="Legs" type="Sprite" parent="Position2D"]
 position = Vector2( -0.487671, -80.7092 )
@@ -127,7 +132,7 @@ visible = false
 position = Vector2( -64, 0 )
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="."]
-autoplay = "idle"
+autoplay = "cheer"
 anims/action_crouch = SubResource( 2 )
 anims/action_heal = SubResource( 1 )
 anims/action_jump = SubResource( 3 )
@@ -135,8 +140,11 @@ anims/action_reload = SubResource( 4 )
 anims/action_shoot = SubResource( 5 )
 anims/action_shoot_empty = SubResource( 10 )
 anims/action_swing = SubResource( 9 )
+anims/cheer = SubResource( 11 )
 anims/die = SubResource( 6 )
+anims/hurt = SubResource( 8 )
 anims/idle = SubResource( 7 )
-anims/idle_hurt = SubResource( 8 )
+
+[node name="Tween" type="Tween" parent="."]
 
 [connection signal="animation_finished" from="AnimationPlayer" to="." method="_on_AnimationPlayer_animation_finished"]

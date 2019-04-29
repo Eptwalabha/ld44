@@ -1,4 +1,3 @@
-tool
 extends Node2D
 class_name Duelist
 
@@ -9,7 +8,7 @@ onready var gun: GunCylinder = $GunCylinder as GunCylinder
 
 export(bool) var flip: bool = false setget set_flip
 export(bool) var player: bool = false
-export(int, 2, 5) var life: int = 3
+export(int, 1, 5) var life: int = 3
 var current_life := 3
 
 var opponent: Duelist setget set_opponent
@@ -24,6 +23,12 @@ var is_reloading := false
 
 func _ready() -> void:
 	reset()
+
+func slide_in() -> void:
+	$Tween.interpolate_property($Position2D, "position", Vector2(-500, 0), Vector2(), 1, Tween.TRANS_CUBIC, Tween.EASE_OUT)
+	$Tween.start()
+	yield($Tween, "tween_completed")
+	idle()
 
 func reset() -> void:
 	current_life = life
@@ -43,15 +48,12 @@ func _reset_states() -> void:
 func update_flip() -> void:
 	if flip:
 		scale.x = -1
+		gun.scale.x = -1
 
 func set_flip(is_flip: bool) -> void:
 	flip = is_flip
 	if Engine.is_editor_hint():
-		if is_flip:
-			gun.scale.x = -1
-			scale.x = -1
-		else:
-			scale.x = 1
+		update_flip()
 
 func set_opponent(duelist: Duelist) -> void:
 	opponent = duelist

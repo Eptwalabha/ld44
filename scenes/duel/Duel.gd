@@ -12,6 +12,7 @@ var opponent: Duelist
 var tutorial: Dialog
 var duelist_end_animation := 0
 var playing := false
+var player_victory := false
 
 export(PackedScene) var Enemy setget set_enemy
 export(PackedScene) var TutorialScene = null
@@ -64,6 +65,10 @@ func reset_game() -> void:
 	opponent.reset()
 
 func start_game() -> void:
+	player.slide_in()
+	opponent.slide_in()
+	timer.start(.5)
+	yield(timer, "timeout")
 	label.text = "READY ?"
 	ui.show()
 	timer.start(1.5)
@@ -79,8 +84,27 @@ func start_game() -> void:
 
 func game_over() -> void:
 	playing = false
+	player_victory = not player.is_dead()
 	card_game.stop_game()
-	print("game over")
+	card_game.hide()
+	if player_victory:
+		player.animation_player.play("cheer")
+		label.text = "VICTORY!"
+	else:
+		opponent.animation_player.play("cheer")
+		label.text = "YOU DIED!"
+	
+	ui.show()
+	timer.start(3)
+	yield(timer, "timeout")
+	ui.hide()
+	next_stage()
+
+func next_stage() -> void:
+	if player_victory:
+		print("load next stage")
+	else:
+		print("load game over")
 
 func _connect_signal() -> void:
 	player.connect("end_card_animation", self, "_on_duelist_end_card_animation")

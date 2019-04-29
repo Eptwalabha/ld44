@@ -1,4 +1,3 @@
-tool
 extends Node2D
 class_name GunCylinder
 
@@ -71,5 +70,3 @@ func angle_of_chamber(chamber: int) -> float:
 
 func set_chamber_size(nbr_of_chamber) -> void:
 	chambers = nbr_of_chamber
-	if Engine.is_editor_hint():
-		_init_gun_cylinder()
