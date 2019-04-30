@@ -1,0 +1,31 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/dialog/DialogLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/img/bartender.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/skull.png" type="Texture" id=4]
+
+[node name="DialogDesert1" instance=ExtResource( 1 )]
+is_tutorial = true
+
+[node name="DialogLine" parent="Lines" index="0" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = " "
+on_dialog_start = "come_in"
+on_dialog_end = "come_out"
+
+[node name="DialogLine2" parent="Lines" index="1" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "..."
+on_dialog_start = "come_in"
+on_dialog_end = "come_out"
+delay_before = 1.0
+
+[node name="Sprite" parent="Node2D" index="0"]
+visible = true
+
+[node name="Sprite" type="Sprite" parent="Node2D/Sprite" index="0"]
+position = Vector2( 59.775, -86.1462 )
+scale = Vector2( -1.59601, 1.59601 )
+texture = ExtResource( 4 )
+

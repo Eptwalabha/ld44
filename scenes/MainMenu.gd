@@ -6,7 +6,8 @@ func _ready() -> void:
 	screen_transition.fade_in()
 
 func _on_New_game_pressed() -> void:
-	fade_then_load_scene("res://scenes/duel/Duel.tscn")
+	var scene: String = GameData.first_fight_scene()
+	fade_then_load_scene(scene)
 
 func _on_Tutorial_pressed() -> void:
 	fade_then_load_scene("res://scenes/duel/Tutorial.tscn")

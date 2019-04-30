@@ -5,6 +5,6 @@
 [node name="DuelistHero" instance=ExtResource( 1 )]
 player = true
 
-[node name="GunCylinder" parent="." index="2"]
-visible = false
+[node name="GunCylinder" parent="." index="1"]
+chambers = 5
 

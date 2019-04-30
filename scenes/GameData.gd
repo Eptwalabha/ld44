@@ -15,6 +15,14 @@ var saloons: Dictionary = {
 	}
 }
 
+var current_fight = 0
+var fights = [
+	"Saloon1.tscn",
+	"Saloon2.tscn",
+	"Town1.tscn",
+	"Desert1.tscn",
+]
+
 enum CardType { EVADE, RELOAD, SHOOT, HEAL }
 
 func _ready() -> void:
@@ -44,3 +52,13 @@ func get_bounty() -> int:
 
 func should_play_tutorial(dialog: Dialog) -> bool:
 	return not has_played_tuto(dialog.get_name())
+
+func first_fight_scene() -> String:
+	current_fight = 0
+	return "res://scenes/duel/fight/" + fights[0]
+	
+func next_fight_scene() -> String:
+	current_fight += 1
+	if current_fight >= fights.size():
+		return "res://scenes/GameOver.tscn"
+	return "res://scenes/duel/fight/" + fights[current_fight]

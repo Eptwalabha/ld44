@@ -1,0 +1,21 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/duel/Duel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/duel/duelists/DuelistCardPlayer2.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/duel/dialogs/DialogTown1.tscn" type="PackedScene" id=3]
+[ext_resource path="res://assets/img/town.png" type="Texture" id=4]
+
+[node name="Town1" index="0" instance=ExtResource( 1 )]
+Enemy = ExtResource( 2 )
+TutorialScene = ExtResource( 3 )
+bounty = 400
+
+[node name="Background" parent="Game" index="0"]
+texture = ExtResource( 4 )
+
+[node name="Player" parent="Game/Ground" index="0"]
+position = Vector2( -200, 40 )
+
+[node name="OpponentPosition" parent="Game/Ground" index="1"]
+position = Vector2( 200, 40 )
+

@@ -1,0 +1,49 @@
+[gd_scene load_steps=5 format=2]
+
+[ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/dialog/DialogLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/img/bartender.png" type="Texture" id=3]
+[ext_resource path="res://assets/img/sheriff.png" type="Texture" id=4]
+
+[node name="DialogSaloon1" instance=ExtResource( 1 )]
+is_tutorial = true
+
+[node name="DialogLine" parent="Lines" index="0" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "No gunshot in my bar!"
+on_dialog_start = "come_in"
+
+[node name="DialogLine2" parent="Lines" index="1" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Oh my God!
+My piano!
+Someone shoot at my piano!"
+
+[node name="DialogLine3" parent="Lines" index="2" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "That's it, I'm calling the
+Sheriff!"
+on_dialog_start = "come_out"
+on_dialog_end = "hidden"
+
+[node name="DialogLine4" parent="Lines" index="3" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Sheriff!
+Arrest this bandit!"
+on_dialog_start = "hidden"
+on_dialog_end = "hidden"
+
+[node name="DialogLine5" parent="Lines" index="4" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 4 )
+dialog_line = "What's going on here?
+And who are you?"
+on_dialog_start = "come_in"
+
+[node name="DialogLine6" parent="Lines" index="5" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 4 )
+dialog_line = "Wait a minute!
+I know you!
+You're wanted Dead or Alive!
+Ah ah! your bounty is mine!"
+on_dialog_end = "come_out"
+

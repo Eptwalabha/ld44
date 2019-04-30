@@ -1,0 +1,9 @@
+[gd_scene load_steps=3 format=2]
+
+[ext_resource path="res://scenes/duel/Duel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/duel/dialogs/DialogSaloon2.tscn" type="PackedScene" id=2]
+
+[node name="Saloon2" instance=ExtResource( 1 )]
+TutorialScene = ExtResource( 2 )
+bounty = 200
+

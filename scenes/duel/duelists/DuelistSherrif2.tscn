@@ -4,7 +4,6 @@
 [ext_resource path="res://assets/img/characters/sheriff-head.png" type="Texture" id=2]
 
 [node name="DuelistSherrif1" instance=ExtResource( 1 )]
-life = 2
 
 [node name="Sprite" parent="Position2D/Body/Torso/Head" index="0"]
 scale = Vector2( -0.63156, 0.63156 )
@@ -12,5 +11,5 @@ texture = ExtResource( 2 )
 
 [node name="GunCylinder" parent="." index="1"]
 chambers = 5
-bullets_in_chamber = 1
+bullets_in_chamber = 4
 

@@ -143,8 +143,7 @@ func play_state() -> void:
 		animation_player.play("die")
 	else:
 		if is_shooting:
-			gun.shoot()
-			if is_shooting:
+			if gun.shoot():
 				animation_player.play("action_shoot")
 			else:
 				animation_player.play("action_shoot_empty")
@@ -180,5 +179,7 @@ func reveal_card_to_play() -> void:
 func opponent_picked(_card: Card) -> void:
 	pass
 
-func _on_AnimationPlayer_animation_finished(_anim_name: String) -> void:
+func _on_AnimationPlayer_animation_finished(anim_name: String) -> void:
+	if anim_name == "die":
+		animation_player.play("die_idle")
 	emit_signal("end_card_animation", self)

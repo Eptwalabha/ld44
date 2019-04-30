@@ -1,13 +1,13 @@
 [gd_scene load_steps=3 format=2]
 
 [ext_resource path="res://scenes/duel/Duelist.tscn" type="PackedScene" id=1]
-[ext_resource path="res://assets/img/characters/sheriff-head.png" type="Texture" id=2]
+[ext_resource path="res://assets/img/characters/player-head.png" type="Texture" id=2]
 
-[node name="DuelistSherrif1" instance=ExtResource( 1 )]
-life = 2
+[node name="CardPlayer1" instance=ExtResource( 1 )]
+life = 1
 
 [node name="Sprite" parent="Position2D/Body/Torso/Head" index="0"]
-scale = Vector2( -0.63156, 0.63156 )
+scale = Vector2( -0.488413, 0.488413 )
 texture = ExtResource( 2 )
 
 [node name="GunCylinder" parent="." index="1"]

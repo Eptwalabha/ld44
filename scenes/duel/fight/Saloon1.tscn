@@ -1,0 +1,10 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/duel/Duel.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/duel/duelists/DuelistCardPlayer1.tscn" type="PackedScene" id=2]
+[ext_resource path="res://scenes/duel/dialogs/DialogSaloon1.tscn" type="PackedScene" id=3]
+
+[node name="Saloon1" instance=ExtResource( 1 )]
+Enemy = ExtResource( 2 )
+TutorialScene = ExtResource( 3 )
+

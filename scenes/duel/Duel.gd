@@ -17,6 +17,8 @@ var player_victory := false
 
 export(PackedScene) var Enemy setget set_enemy
 export(PackedScene) var TutorialScene = null
+export(int) var bounty := 100
+export(bool) var skip_dialog := false
 
 func _ready() -> void:
 	phase_label.text = ""
@@ -27,14 +29,10 @@ func _prepare_game() -> void:
 	reset_game()
 	_connect_signal()
 
-	if TutorialScene is PackedScene:
+	if TutorialScene is PackedScene and not skip_dialog:
 		tutorial = TutorialScene.instance() as Dialog
-		if GameData.should_play_tutorial(tutorial):
-			add_child(tutorial)
-			_start_tutorial()
-		else:
-			tutorial.queue_free()
-			start_game()
+		add_child(tutorial)
+		_start_tutorial()
 	else:
 		start_game()
 
@@ -108,7 +106,8 @@ func next_stage() -> void:
 	screen_transition.fade_out()
 	yield(screen_transition, "faded_out")
 	if player_victory:
-		get_tree().change_scene("res://scenes/GameOver.tscn")
+		GameData.bounty += bounty
+		get_tree().change_scene("res://scenes/BountyRaised.tscn")
 	else:
 		get_tree().change_scene("res://scenes/GameOver.tscn")
 

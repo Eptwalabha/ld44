@@ -1,0 +1,19 @@
+[gd_scene load_steps=4 format=2]
+
+[ext_resource path="res://scenes/dialog/Dialog.tscn" type="PackedScene" id=1]
+[ext_resource path="res://scenes/dialog/DialogLine.tscn" type="PackedScene" id=2]
+[ext_resource path="res://assets/img/npc-player.png" type="Texture" id=3]
+
+[node name="DialogSaloon1" instance=ExtResource( 1 )]
+is_tutorial = true
+
+[node name="DialogLine" parent="Lines" index="0" instance=ExtResource( 2 )]
+actor_texture = ExtResource( 3 )
+dialog_line = "Wait! I'm not finished with you!
+I'm going to kill you!"
+on_dialog_start = "come_in"
+on_dialog_end = "come_out"
+
+[node name="Sprite" parent="Node2D" index="0"]
+visible = true
+

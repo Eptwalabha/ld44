@@ -7,7 +7,7 @@ onready var pivot : Sprite = $Pivot as Sprite
 var Ammunition := load("res://scenes/duel/Bullet.tscn") as PackedScene
 
 export(int, 5, 8) var chambers := 5 setget set_chamber_size
-export(int, 2, 5) var bullets_in_chamber := 2
+export(int, 1, 5) var bullets_in_chamber := 2
 
 var current_chamber := 0
 var angle : float = .0
@@ -30,7 +30,7 @@ func _init_gun_cylinder() -> void:
 		bullets.push_back(bullet)
 
 func can_shoot() -> bool:
-	return _index_of_first_chamber(false) > -1
+	return _index_of_first_chamber(false) != -1
 
 func shoot() -> bool:
 	var bullet: Bullet = bullets[current_chamber] as Bullet
@@ -52,7 +52,7 @@ func _index_of_first_chamber(used = true) -> int:
 		if bullet.used == used:
 			return index
 		index += 1
-	return 0
+	return -1
 
 func _rotate_to_chamber(index: int) -> void:
 	current_chamber = index
